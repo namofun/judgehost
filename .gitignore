@@ -46,3 +46,4 @@
 /lib/init.php
 /aclocal.m4
 /configure
+/etc/config.h.in
