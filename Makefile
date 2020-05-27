@@ -114,4 +114,4 @@ clean-autoconf:
 
 .PHONY: $(addsuffix -create-dirs,judgehost) check-root \
         clean-autoconf $(addprefix maintainer-,conf install uninstall) \
-        config coverity-conf coverity-build
+        config
