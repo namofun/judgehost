@@ -1,0 +1,31 @@
+path_classifiers:
+  test:
+    - tests
+  library:
+    - lib/vendor
+    - webapp/public/js/ace
+    - "webapp/public/js/bootstrap-toggle.*"
+    - webapp/public/js/jscolor.js
+  docs:
+    - doc
+queries:
+  - exclude: cpp/fixme-comment
+extraction:
+  cpp:
+    prepare:
+      packages:
+        - composer
+        - php-curl
+        - php-gd
+        - php-intl
+        - php-mbstring
+        - php-mysql
+        - php-xml
+        - php-zip
+    configure:
+      command:
+        - make dist DOC_BUILD_ENABLED=no
+        - ./configure --disable-doc-build
+    index:
+      build_command:
+        - make build
