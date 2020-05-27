@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+/**
+ * @configure_input@
+ *
+ * This is a wrapper script which sets the configuration and system
+ * paths and then calls the main judgedaemon code.
+ *
+ * Part of the DOMjudge Programming Contest Jury System and licensed
+ * under the GNU GPL. See README and COPYING for details.
+ */
+if (isset($_SERVER['REMOTE_ADDR'])) {
+    die("Commandline use only");
+}
+
+require('@judgehost_etcdir@/judgehost-static.php');
+
+include(LIBJUDGEDIR . '/judgedaemon.main.php');

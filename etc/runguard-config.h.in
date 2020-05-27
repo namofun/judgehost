@@ -1,0 +1,15 @@
+/* @configure_input@ */
+
+#ifndef _RUNGUARD_CONFIG_
+#define _RUNGUARD_CONFIG_
+
+/* Valid users to allow as unprivileged user that runguard drops to.
+   The '*' globbing characters matches an arbitrary length string
+   since we want to have a user for each judgedaemon when supporting
+   multiple judgedaemons per host. Matching is only performed when the
+   user is specified as a name, not UID, to runguard. */
+#define VALID_USERS "@RUNUSER@,@RUNUSER@-*"
+
+#define CHROOT_PREFIX "@judgehost_judgedir@"
+
+#endif /* _RUNGUARD_CONFIG_ */
