@@ -329,6 +329,9 @@ fi
 if [ "$program_exit" != "0" ]; then
 	echo "Non-zero exitcode $program_exit" >>system.out
 	echo "$resourceinfo" >>system.out
+	if [ $(($MEMLIMIT * 1024 - 100)) -le $memory_bytes ]; then
+		cleanexit ${E_MEMORY_LIMIT:-1}
+	fi
 	cleanexit ${E_RUN_ERROR:-1}
 fi
 
