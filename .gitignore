@@ -1,3 +1,27 @@
+# judgehost made files
+/config.log
+/config.status
+/etc/config.h
+/etc/judgehost-static.php
+/etc/runguard-config.h
+/etc/sudoers-domjudge
+/judge/chroot-startstop.sh
+/judge/domjudge-judgehost.service
+/judge/evict
+/judge/judgedaemon
+/judge/runguard
+/judge/runguard.o
+/judge/runpipe
+/lib/lib.error.o
+/lib/lib.misc.o
+/misc-tools/create-cgroups.service
+/misc-tools/create_cgroups
+/misc-tools/dj_make_chroot
+/misc-tools/dj_make_chroot_docker
+/misc-tools/dj_run_chroot
+/paths.mk
+
+# DOMjudge distribute package files
 /README.md
 /sql
 /webapp
