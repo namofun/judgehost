@@ -44,4 +44,5 @@
 /lib/lib.dbconfig.php
 /lib/lib.database.php
 /lib/init.php
-
+/aclocal.m4
+/configure
