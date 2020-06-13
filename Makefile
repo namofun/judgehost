@@ -39,6 +39,7 @@ maintainer-clean:  SUBDIRS=etc lib judge misc-tools
 
 judgehost-create-dirs:
 	$(INSTALL_DIR) $(addprefix $(DESTDIR),$(judgehost_dirs))
+	$(INSTALL_USRDIR) $(addprefix $(DESTDIR),$(judgehost_diru))
 
 # As final step try set ownership and permissions of a few special
 # files/directories. Print a warning and fail gracefully if this
