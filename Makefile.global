@@ -40,7 +40,7 @@ INSTALL_PROG    = $(INSTALL)
 INSTALL_DATA    = $(INSTALL) -m 0644
 INSTALL_USER    = $(INSTALL) -m 0644 -o $(DOMJUDGE_USER)
 INSTALL_DIR     = $(INSTALL) -d
-INSTALL_USRDIR  = $(INSTALL) -d -o $(DOMJUDGE_USER)
+INSTALL_USRDIR  = $(INSTALL) -d -o $(DOMJUDGE_USER) -g $(DOMJUDGE_USER)
 # KLUDGE: how to install a tree of files with correct permissions?
 define install_tree
 	cp    -R -t   $(1) $(2) ; \
