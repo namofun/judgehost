@@ -7,8 +7,8 @@ After=network.target
 [Service]
 Type=simple
 
-ExecStart=@judgehost_bindir@/judgedaemon -n 0
-User=domjudge
+ExecStart=@judgehost_bindir@/judgedaemon -n %i
+User=@DOMJUDGE_USER@
 
 Restart=always
 RestartSec=3

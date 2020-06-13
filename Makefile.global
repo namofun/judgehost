@@ -23,16 +23,6 @@ ifneq ($(wildcard $(TOPDIR)/paths.mk),)
 include $(TOPDIR)/paths.mk
 endif
 
-# We should build docs if it not explicitly disabled and we're not
-# running "make maintainer-conf":
-BUILD_DOCS=no
-ifneq ($(DOC_BUILD_ENABLED),no)
-ifneq ($(MAKECMDGOALS),maintainer-conf)
-BUILD_DOCS=yes
-endif
-endif
-export BUILD_DOCS
-
 # Determine revision info:
 REVISION = $(shell \
 if [ -n "$(PUBLISHED)" ]; then \
@@ -50,6 +40,7 @@ INSTALL_PROG    = $(INSTALL)
 INSTALL_DATA    = $(INSTALL) -m 0644
 INSTALL_USER    = $(INSTALL) -m 0644 -o $(DOMJUDGE_USER)
 INSTALL_DIR     = $(INSTALL) -d
+INSTALL_USRDIR  = $(INSTALL) -d -o $(DOMJUDGE_USER)
 # KLUDGE: how to install a tree of files with correct permissions?
 define install_tree
 	cp    -R -t   $(1) $(2) ; \

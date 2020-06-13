@@ -60,7 +60,6 @@ CURL_STATIC = @CURL_STATIC@
 
 # User:group file ownership of password files
 DOMJUDGE_USER   = @DOMJUDGE_USER@
-WEBSERVER_GROUP = @WEBSERVER_GROUP@
 
 # Base URL of the DOMjudge web interfaces
 BASEURL         = @BASEURL@
@@ -92,17 +91,6 @@ pdfdir         = @pdfdir@
 psdir          = @psdir@
 
 # Installation paths
-domserver_bindir       = @domserver_bindir@
-domserver_etcdir       = @domserver_etcdir@
-domserver_webappdir    = @domserver_webappdir@
-domserver_sqldir       = @domserver_sqldir@
-domserver_libdir       = @domserver_libdir@
-domserver_libvendordir = @domserver_libvendordir@
-domserver_logdir       = @domserver_logdir@
-domserver_rundir       = @domserver_rundir@
-domserver_tmpdir       = @domserver_tmpdir@
-domserver_submitdir    = @domserver_submitdir@
-
 judgehost_bindir       = @judgehost_bindir@
 judgehost_etcdir       = @judgehost_etcdir@
 judgehost_libdir       = @judgehost_libdir@
@@ -114,21 +102,12 @@ judgehost_judgedir     = @judgehost_judgedir@
 judgehost_chrootdir    = @judgehost_chrootdir@
 judgehost_cgroupdir    = @judgehost_cgroupdir@
 
-domjudge_docdir        = @domjudge_docdir@
-
 # The tmpdir's are not in these lists, since they would otherwise get
 # their permissions overwritten in FHS install mode.
-domserver_dirs = $(domserver_bindir) $(domserver_etcdir) \
-                 $(domserver_libdir) $(domserver_libvendordir) \
-                 $(domserver_logdir) $(domserver_rundir) \
-                 $(domserver_submitdir) \
-                 $(addprefix $(domserver_webappdir)/public/images/,affiliations countries teams)
-
 judgehost_dirs = $(judgehost_bindir) $(judgehost_etcdir) $(judgehost_libdir) \
-                 $(judgehost_libjudgedir) $(judgehost_logdir) \
-                 $(judgehost_rundir) $(judgehost_judgedir)
+                 $(judgehost_libjudgedir)
 
-docs_dirs      = $(addprefix $(domjudge_docdir)/,manual team examples logos)
+judgehost_diru = $(judgehost_logdir) $(judgehost_rundir) $(judgehost_judgedir)
 
 # Macro to substitute configure variables.
 # Defined in makefile to allow for expansion of ${prefix} etc. during
@@ -140,16 +119,6 @@ define substconfigvars
 	-e "s|@configure_input[@]|Generated from '$<' on `date`.|g" \
 	-e 's,@PACKAGE_NAME[@],@PACKAGE_NAME@,g' \
 	-e 's,@DOMJUDGE_VERSION[@],@DOMJUDGE_VERSION@,g' \
-	-e 's,@domserver_bindir[@],@domserver_bindir@,g' \
-	-e 's,@domserver_etcdir[@],@domserver_etcdir@,g' \
-	-e 's,@domserver_webappdir[@],@domserver_webappdir@,g' \
-	-e 's,@domserver_sqldir[@],@domserver_sqldir@,g' \
-	-e 's,@domserver_libdir[@],@domserver_libdir@,g' \
-	-e 's,@domserver_libvendordir[@],@domserver_libvendordir@,g' \
-	-e 's,@domserver_logdir[@],@domserver_logdir@,g' \
-	-e 's,@domserver_rundir[@],@domserver_rundir@,g' \
-	-e 's,@domserver_tmpdir[@],@domserver_tmpdir@,g' \
-	-e 's,@domserver_submitdir[@],@domserver_submitdir@,g' \
 	-e 's,@judgehost_bindir[@],@judgehost_bindir@,g' \
 	-e 's,@judgehost_etcdir[@],@judgehost_etcdir@,g' \
 	-e 's,@judgehost_libdir[@],@judgehost_libdir@,g' \
@@ -161,14 +130,11 @@ define substconfigvars
 	-e 's,@judgehost_judgedir[@],@judgehost_judgedir@,g' \
 	-e 's,@judgehost_chrootdir[@],@judgehost_chrootdir@,g' \
 	-e 's,@judgehost_cgroupdir[@],@judgehost_cgroupdir@,g' \
-	-e 's,@domjudge_docdir[@],@domjudge_docdir@,g' \
 	-e 's,@DOMJUDGE_USER[@],@DOMJUDGE_USER@,g' \
-	-e 's,@WEBSERVER_GROUP[@],@WEBSERVER_GROUP@,g' \
 	-e 's,@BEEP[@],@BEEP@,g' \
 	-e 's,@RUNUSER[@],@RUNUSER@,g' \
 	-e 's,@RUNGROUP[@],@RUNGROUP@,g' \
 	-e 's,@BASEURL[@],@BASEURL@,g' \
-	-e 's,@SUBMITCLIENT_ENABLED[@],@SUBMITCLIENT_ENABLED@,g' \
 	> $@
 @chmod --reference=$< $@
 endef
