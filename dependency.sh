@@ -17,7 +17,7 @@ apt install -y \
     libcurl4-gnutls-dev libjsoncpp-dev libmagic-dev
 
 # C/C++
-apt install -y gcc c++
+apt install -y gcc g++
 
 # Java
 apt install -y openjdk-8-jre-headless openjdk-8-jdk
