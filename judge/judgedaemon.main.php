@@ -910,9 +910,6 @@ function judge(array $row)
         error("chroot script exited with exitcode $retval");
     }
 
-    // Query timelimit overshoot here once for all testcases
-    $overshoot = dbconfig_get_rest('timelimit_overshoot');
-
     $totalcases = 0;
     $lastcase_correct = true;
     $unsent_judging_runs = array();
@@ -991,8 +988,9 @@ function judge(array $row)
         }
 
         // do the actual test-run
-        $hardtimelimit = $row['maxruntime'] +
-                         overshoot_time($row['maxruntime'], $overshoot);
+        $hardtimelimit = $row['maxruntime'];
+        $proc_count = intval(exec("grep -c ^processor /proc/cpuinfo"));
+        $row['maxruntime'] = $row['maxruntime'] * $proc_count;
 
         list($run_runpath, $error) =
             fetch_executable($workdirpath, $row['run'], $row['run_md5sum'], $row['combined_run_compare']);
@@ -1033,8 +1031,8 @@ function judge(array $row)
         $runtime = null;
         $metadata = read_metadata($testcasedir . '/program.meta');
 
-        if (isset($metadata['time-used'])) {
-            $runtime = @$metadata[$metadata['time-used']];
+        if (isset($metadata['wall-time'])) {
+            $runtime = @$metadata['wall-time'];
         }
 
         if ($result === 'compare-error') {

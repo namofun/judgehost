@@ -2,6 +2,8 @@
 
 This judgehost is modified from DOMjudge.
 
+This branch is for multi-threading programs.
+
 Current base code version is v7.2.0.
 
 # Configuring judgehosts
@@ -26,8 +28,4 @@ sudo make install
 # and do not guarantee the arguments are correctly installed
 # You may only run on the first install on a clean install
 sudo ./finalize.sh
-
-# Setup the corresponding count of judgehosts
-# NOTE that you may have to disable these manually if needed
-sudo ./setup-batch.sh
 ```

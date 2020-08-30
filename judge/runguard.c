@@ -701,7 +701,7 @@ void read_optarg_time(const char *desc, double *times)
 			error(errno,"invalid %s specified: `%s'",desc,optarg);
 		}
 		if ( times[1]<times[0] ) {
-			error(0,"invalid %s specified: hard limit is lower than soft limit",desc);
+			// error(0,"invalid %s specified: hard limit is lower than soft limit",desc);
 		}
 	} else {
 		/* Set soft and hard limits equal. */
