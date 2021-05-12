@@ -148,7 +148,6 @@ if test "x$FHS_ENABLED" = xyes ; then
 	AC_SUBST(domserver_logdir,      $localstatedir/log/${PACKAGE_TARNAME})
 	AC_SUBST(domserver_rundir,      $localstatedir/run/${PACKAGE_TARNAME})
 	AC_SUBST(domserver_tmpdir,      /tmp)
-	AC_SUBST(domserver_submitdir,   $localstatedir/lib/${PACKAGE_TARNAME}/submissions)
 
 	AC_SUBST(judgehost_root,        '')
 	AC_SUBST(judgehost_bindir,      $bindir)
@@ -192,12 +191,10 @@ AX_PATH(domserver_libvendordir, [$domserver_root/lib/vendor])
 AX_PATH(domserver_logdir,       [$domserver_root/log])
 AX_PATH(domserver_rundir,       [$domserver_root/run])
 AX_PATH(domserver_tmpdir,       [$domserver_root/tmp])
-AX_PATH(domserver_submitdir,    [$domserver_root/submissions])
 AX_WITH_COMMENT(6,[     ])
 AX_PATH(judgehost_bindir,       [$judgehost_root/bin])
 AX_PATH(judgehost_etcdir,       [$judgehost_root/etc])
 AX_PATH(judgehost_libdir,       [$judgehost_root/lib])
-AX_PATH(judgehost_libvendordir, [$judgehost_root/lib/vendor])
 AX_PATH(judgehost_libjudgedir,  [$judgehost_root/lib/judge])
 AX_PATH(judgehost_logdir,       [$judgehost_root/log])
 AX_PATH(judgehost_rundir,       [$judgehost_root/run])
@@ -294,10 +291,9 @@ else
 fi
 
 # Check option to build documentation. This option is provided to
-# allow disabling it when a LaTeX installation is not present.
+# allow disabling it.
 AC_ARG_ENABLE(doc-build,AS_HELP_STRING([--enable-doc-build],
-[enable building documentation; requires a working LaTeX installation
- for 'make dist' (default: yes).]))
+[enable building documentation (default: yes).]))
 
 if test "x$enable_doc_build" = "xno"; then
 	AC_SUBST(DOC_BUILD_ENABLED,[no])
@@ -376,7 +372,6 @@ echo "    - libvendor........: $domserver_libvendordir"
 echo "    - log..............: $domserver_logdir"
 echo "    - run..............: $domserver_rundir"
 echo "    - sql..............: $domserver_sqldir"
-echo "    - submit...........: $domserver_submitdir"
 echo "    - tmp..............: $domserver_tmpdir"
 echo "    - webapp...........: $domserver_webappdir"
 echo ""
@@ -384,7 +379,6 @@ echo " * judgehost...........: $judgehost_root"
 echo "    - bin..............: $judgehost_bindir"
 echo "    - etc..............: $judgehost_etcdir"
 echo "    - lib..............: $judgehost_libdir"
-echo "    - libvendor........: $judgehost_libvendordir"
 echo "    - libjudge.........: $judgehost_libjudgedir"
 echo "    - log..............: $judgehost_logdir"
 echo "    - run..............: $judgehost_rundir"
@@ -396,8 +390,8 @@ echo ""
 echo "Run 'make' without arguments to get a list of (build) targets."
 echo ""
 if test "x$BASEURL_UNCONFIGURED" = x1 ; then
-   echo "Warning: base URL is unconfigured; the submit client, generating team"
-   echo "documentation and OpenID support will not work out of the box!"
+   echo "Warning: base URL is unconfigured; the submit client and generating"
+   echo "team documentation will not work out of the box!"
    echo "Rerun configure with option '--with-baseurl=BASEURL' to correct this."
    echo ""
 fi
