@@ -15,6 +15,7 @@
 /misc-tools/event_xml2csv.xslt
 /misc-tools/compare-cds.sh
 /misc-tools/import-contest.sh
+/mist-tools/fix_permissions.in
 /symfony.lock
 /CONTRIBUTING.md
 /composer.lock
@@ -26,6 +27,7 @@
 /etc/nginx-conf.in
 /etc/apache.conf.in
 /etc/.htaccess
+/etc/db-config.yaml
 /etc/gensymfonysecret
 /etc/genrestapicredentials
 /etc/genadminpassword
