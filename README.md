@@ -2,7 +2,7 @@
 
 This judgehost is modified from DOMjudge.
 
-Current base code version is v7.2.0.
+Current base code version is v7.3.3.
 
 # Configuring judgehosts
 
