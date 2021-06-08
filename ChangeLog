@@ -1,5 +1,92 @@
 DOMjudge Programming Contest Judging System
 
+Version 7.3.3 - 5 April 2021
+----------------------------
+ - Fix single problem API action for non-jury members.
+ - Fix reversed submission diff output.
+ - Fix for browser swallowing newlines in output listings.
+ - Improve feedback when submitting without team member role.
+ - Fix compatibility with composer 2.0.
+ - Fix compatibility with MySQL 8.
+ - Fix ability to restart a not yet judged submission.
+ - Fix team pages when there is no active contest.
+ - Fix judgedaemon fallback run scripts for Java and Python.
+ - Set doctrine server version to a safe base.
+ - Decrease our default hash cost for user passwords so importing
+   many accounts at once does not take an unreasonable time.
+ - Improve documentation.
+
+Version 7.3.2 - 23 November 2020
+--------------------------------
+ - Be more tolerant of empty lines in restapi.secret.
+ - Fix team manual build failure with recent rst2pdf versions.
+ - Update URL for imports from ICPC CMS.
+ - Fix team count on jury contest overview screen.
+ - Truncate output for sample runs on team pages.
+ - Fix compatibility with MySQL 8.x.
+
+Version 7.3.1 - 10 November 2020
+--------------------------------
+ - Fix chroot install on Ubuntu 20.04.
+ - Fix results.hml and results.tsv output.
+ - Fix race condition in scoreboard related to a Doctrine bug.
+ - Fix having fresh data for scheduling repeated rejudgings.
+ - Fix clarification filter buttons when not using queues.
+ - Fix database user creation for MySQL >= 8.0.
+ - Fix warning about DataTables initialization on judgehosts page.
+ - Documentation improvements.
+
+Version 7.3.0 - 26 June 2020
+----------------------------
+ - Move specification of database configuration out of database and into
+   a YAML file. Also show select boxes when appropriate.
+ - Rename team.externalid to team.icpcid, since it is not an external ID in
+   the sense the other ones are.
+ - Add team display name support.
+ - Add support for importing teams, organizations and groups using JSON.
+ - Add script dj_judgehost_cleanup for maintenance on judgehosts.
+ - Team manual source is now RestructeredText.
+ - Log out an active user whose password is changed, and updates to the
+   roles of a logged in user are effective immediately.
+ - Allow to "delete" testcases even with associated judgings.
+ - Fix permissions on webapp/var/* by using group setsid bit.
+ - Allow public and team to view submissions, awards and clarifications
+   using the API.
+ - Allow users with API_READER role to fetch inactive contests
+ - Drop smart renaming for Java public classes.
+ - Show browser notifications also for new balloons to be handed out.
+ - Add option to allow teams to download their own submission.
+ - Change shadow import to read data from a configuration file and store
+   a copy of the feed.
+ - Pin scoreboard header to top when scrolling page.
+ - Add console command to reset the password of any user.
+ - Many code cleanups, improvements and tests.
+ - Upgrade Symfony to 4.4 LTS and upgrade other library dependencies.
+
+Version 7.2.1 - 6 May 2020
+--------------------------
+ - Various documentation fixes and improvements.
+ - Fix filtering balloons by affiliation (Thanks Michael Baer).
+ - Fix audit log entries for newly created entities.
+ - Small fix to make API delete events adhere to the specification.
+ - Fix some edge-case bugs in the scoreboard calculation.
+ - Fix arguments to UploadedFile().
+ - Fix SQL group by leading to errors on newer DB versions (Thanks
+   Michael Baer).
+ - Fix submit help to work when baseurl is invalid.
+ - Various small fixes to the build/install system.
+ - Fix user IP address field to accept IPv6 addresses.
+ - Fix and document static scoreboard contest selection feature.
+ - Fix a sed error message on internal compile error.
+ - Fix link to documentation from the admin index page.
+ - Fix problem text links from scoreboard header.
+ - Fix that country select fields are hidden when show_flags is off.
+ - Fix editing testcase descriptions.
+ - Fix encoding of multiline testcase descriptions in submit graphs.
+ - Fix hardcoded domjudge username in SystemD service file.
+ - Fix compatibilty with PHP 7.4.
+ - Document that minimum PHP version is now 7.2.5.
+
 Version 7.2.0 - 4 January 2020
 ------------------------------
  - Rewrote documentation into a completely new DOMjudge Manual.

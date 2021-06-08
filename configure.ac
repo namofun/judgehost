@@ -147,7 +147,6 @@ AX_WITH_COMMENT(6,[     ])
 AX_PATH(judgehost_bindir,       [$judgehost_root/bin])
 AX_PATH(judgehost_etcdir,       [$judgehost_root/etc])
 AX_PATH(judgehost_libdir,       [$judgehost_root/lib])
-AX_PATH(judgehost_libvendordir, [$judgehost_root/lib/vendor])
 AX_PATH(judgehost_libjudgedir,  [$judgehost_root/lib/judge])
 AX_PATH(judgehost_logdir,       [$judgehost_root/log])
 AX_PATH(judgehost_rundir,       [$judgehost_root/run])
@@ -187,10 +186,9 @@ else
 fi
 
 # Check option to build documentation. This option is provided to
-# allow disabling it when a LaTeX installation is not present.
+# allow disabling it.
 AC_ARG_ENABLE(doc-build,AS_HELP_STRING([--enable-doc-build],
-[enable building documentation; requires a working LaTeX installation
- for 'make dist' (default: yes).]))
+[enable building documentation (default: yes).]))
 
 if test "x$enable_doc_build" = "xno"; then
 	AC_SUBST(DOC_BUILD_ENABLED,[no])
@@ -249,7 +247,6 @@ echo " * judgehost...........: $judgehost_root"
 echo "    - bin..............: $judgehost_bindir"
 echo "    - etc..............: $judgehost_etcdir"
 echo "    - lib..............: $judgehost_libdir"
-echo "    - libvendor........: $judgehost_libvendordir"
 echo "    - libjudge.........: $judgehost_libjudgedir"
 echo "    - log..............: $judgehost_logdir"
 echo "    - run..............: $judgehost_rundir"
