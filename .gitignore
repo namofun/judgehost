@@ -37,6 +37,7 @@
 /etc/domjudge-fpm.conf.in
 /etc/import-forwardfeed.yaml
 /etc/submit-config.h.in
+/etc/shadowing.yaml.dist
 /etc/gendbpasswords
 /import
 /docker-compose.yml
