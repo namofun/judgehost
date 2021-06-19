@@ -83,9 +83,10 @@ function close_curl_handles()
  * warning and null is returned.
  */
 $lastrequest = '';
-function request(string $url, string $verb = 'GET', string $data = '', bool $failonerror = true)
+$last_content_type = '';
+function request(string $url, string $verb = 'GET', string $data = '', bool $failonerror = true, string $accept = '*/*')
 {
-    global $endpoints, $endpointID, $lastrequest;
+    global $endpoints, $endpointID, $lastrequest, $last_content_type;
 
     // Don't flood the log with requests for new judgings every few seconds.
     if (strpos($url, 'judgehosts/next-judging') === 0 && $verb==='POST') {
@@ -107,7 +108,7 @@ function request(string $url, string $verb = 'GET', string $data = '', bool $fai
     curl_setopt($curl_handle, CURLOPT_URL, $url);
 
     curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, $verb);
-    curl_setopt($curl_handle, CURLOPT_HTTPHEADER, []);
+    curl_setopt($curl_handle, CURLOPT_HTTPHEADER, ['Accept: '.$accept]);
 
     curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 0);
@@ -138,6 +139,7 @@ function request(string $url, string $verb = 'GET', string $data = '', bool $fai
         }
     }
     $status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
+    $last_content_type = curl_getinfo($curl_handle, CURLINFO_CONTENT_TYPE);
     if ($status < 200 || $status >= 300) {
         if ($status == 401) {
             $errstr = "Authentication failed (error $status) while contacting $url. " .
@@ -1142,6 +1144,7 @@ function judge(array $row)
  */
 function fetchTestcase(array $row, $workdirpath, $rank): array
 {
+    global $last_content_type, $myhost;
     // Get both in- and output files, only if we didn't have them already.
     $tcfile = array();
     $fetched = array();
@@ -1152,14 +1155,22 @@ function fetchTestcase(array $row, $workdirpath, $rank): array
 
         if (!file_exists($tcfile[$inout])) {
             $url = sprintf('testcases/%s/file/%s', $tc['testcaseid'], $inout);
-            $content = request($url, 'GET', '', FALSE);
+            $content = request($url, 'GET', '', FALSE, 'application/octet-stream,application/json');
             if ($content === NULL) {
                 $error = 'Download of ' . $inout . ' failed for case ' . $tc['testcaseid'] . ', check your problem integrity.';
                 logmsg(LOG_ERR, $error);
                 disable('problem', 'probid', $row['probid'], $error, $row['judgingid'], (string)$row['cid']);
                 return NULL;
             }
-            $content = base64_decode(dj_json_decode($content));
+            if ($last_content_type === 'application/json') {
+                $content = base64_decode(dj_json_decode($content));
+            } else if ($last_content_type !== 'application/octet-stream' && $last_content_type !== 'text/plain') {
+                $error = 'Download of ' . $inout . ' failed for problem ' . $row['probid'] . ' case ' . $tc['testcaseid'] . ', content unacceptable.';
+                logmsg(LOG_ERR, 'Unknown response content type: ' . $last_content_type . '. Probably the DOMserver has accept/content-type parsing problems.');
+                logmsg(LOG_ERR, $error);
+                disable('judgehost', 'hostname', $myhost, $error, $row['judgingid'], (string)$row['cid']);
+                return NULL;
+            }
             if (file_put_contents($tcfile[$inout] . ".new", $content) === false) {
                 error("Could not create $tcfile[$inout].new");
             }
