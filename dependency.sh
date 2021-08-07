@@ -6,8 +6,8 @@ then
     exit
 fi
 
-apt upgrade
-apt update -y
+apt update
+apt upgrade -y
 
 # basis for the judgehost program
 apt install -y \
