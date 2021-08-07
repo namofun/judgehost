@@ -10,8 +10,9 @@ fi
 useradd -d /nonexistent -U -M -s /bin/false domjudge-run
 cp /opt/domjudge/judgehost/etc/sudoers-domjudge /etc/sudoers.d/
 cp /opt/domjudge/lib/systemd/system/domjudge-judgehost.service /opt/domjudge/lib/systemd/system/domjudge-judgehost@.service
-ln -s /opt/domjudge/lib/systemd/system/domjudge-judgehost@.service /etc/systemd/system/
-ln -s /opt/domjudge/lib/systemd/system/create-cgroups.service /etc/systemd/system/
+sed -i 's/judgedaemon -n 0/judgedaemon -n %i/g' /opt/domjudge/lib/systemd/system/domjudge-judgehost@.service
+ln -s /opt/domjudge/lib/systemd/system/domjudge-judgehost@.service /lib/systemd/system/
+ln -s /opt/domjudge/lib/systemd/system/create-cgroups.service /lib/systemd/system/
 
 # Debootstrap
 echo "Choose debootstrap source"
