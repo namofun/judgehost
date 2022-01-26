@@ -84,7 +84,7 @@ function close_curl_handles()
  */
 $lastrequest = '';
 $last_content_type = '';
-function request(string $url, string $verb = 'GET', string $data = '', bool $failonerror = true, string $accept = '*/*')
+function request(string $url, string $verb = 'GET', string $data = '', bool $failonerror = true, string $accept = '*/*', bool $allow_auto_redirect = false)
 {
     global $endpoints, $endpointID, $lastrequest, $last_content_type;
 
@@ -112,6 +112,10 @@ function request(string $url, string $verb = 'GET', string $data = '', bool $fai
 
     curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 0);
+
+    if ($verb == 'GET' && $allow_auto_redirect) {
+        curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, true);
+    }
 
     if ($verb == 'POST') {
         curl_setopt($curl_handle, CURLOPT_POST, true);
@@ -1155,7 +1159,7 @@ function fetchTestcase(array $row, $workdirpath, $rank): array
 
         if (!file_exists($tcfile[$inout])) {
             $url = sprintf('testcases/%s/file/%s', $tc['testcaseid'], $inout);
-            $content = request($url, 'GET', '', FALSE, 'application/octet-stream,application/json');
+            $content = request($url, 'GET', '', FALSE, 'application/octet-stream,application/json', true);
             if ($content === NULL) {
                 $error = 'Download of ' . $inout . ' failed for case ' . $tc['testcaseid'] . ', check your problem integrity.';
                 logmsg(LOG_ERR, $error);
