@@ -1159,7 +1159,7 @@ function fetchTestcase(array $row, $workdirpath, $rank): array
 
         if (!file_exists($tcfile[$inout])) {
             $url = sprintf('testcases/%s/file/%s', $tc['testcaseid'], $inout);
-            $content = request($url, 'GET', '', FALSE, 'application/octet-stream,application/json', true);
+            $content = request($url, 'GET', '', FALSE, 'application/x-http302-redirect,application/octet-stream,application/json', true);
             if ($content === NULL) {
                 $error = 'Download of ' . $inout . ' failed for case ' . $tc['testcaseid'] . ', check your problem integrity.';
                 logmsg(LOG_ERR, $error);
