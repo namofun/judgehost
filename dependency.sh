@@ -6,8 +6,8 @@ then
     exit
 fi
 
-apt upgrade
-apt update -y
+apt update
+apt upgrade -y
 
 # basis for the judgehost program
 apt install -y \
@@ -30,6 +30,3 @@ apt install -y fp-compiler
 
 # Python 2/3
 apt install -y python3 python2.7
-
-# C#
-apt install -y mono-runtime mono-devel
