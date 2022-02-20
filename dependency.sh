@@ -20,7 +20,7 @@ apt install -y \
 apt install -y gcc g++
 
 # Java
-apt install -y openjdk-8-jre-headless openjdk-8-jdk
+apt install -y openjdk-11-jre-headless openjdk-11-jdk
 
 # Haskell
 apt install -y ghc
